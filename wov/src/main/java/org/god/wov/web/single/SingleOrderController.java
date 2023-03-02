@@ -3,7 +3,6 @@ package org.god.wov.web.single;
 import static org.god.wov.web.single.SingleOrderController.REQUEST_ROOT;
 
 import lombok.extern.log4j.Log4j2;
-import org.god.wov.web.common.model.WorkOrderValidationResult;
 import org.god.wov.web.common.model.request.WorkOrderSingleRequest;
 import org.god.wov.web.common.model.response.WorkOrderSingleResponse;
 import org.springframework.http.HttpStatus;

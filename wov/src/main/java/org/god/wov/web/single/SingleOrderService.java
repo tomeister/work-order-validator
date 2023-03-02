@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import org.god.wov.rules.*;
 import org.god.wov.web.common.ValidationError;
 import org.god.wov.web.common.Validity;
+import org.god.wov.web.common.WorkOrderValidationDatabaseService;
 import org.god.wov.web.common.model.request.WorkOrderSingleRequest;
 import org.god.wov.web.common.model.response.WorkOrderSingleResponse;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,10 @@ import static org.god.wov.web.common.Validity.VALID;
 @Service
 public class SingleOrderService {
     private final WorkOrderValidator validator;
-    public SingleOrderService(WorkOrderValidator validator) {
+    private final WorkOrderValidationDatabaseService databaseOps;
+    public SingleOrderService(WorkOrderValidator validator, WorkOrderValidationDatabaseService databaseOps) {
         this.validator = validator;
+        this.databaseOps = databaseOps;
     }
 
     WorkOrderSingleResponse validate(WorkOrderSingleRequest inboundOrder) {
@@ -34,6 +37,9 @@ public class SingleOrderService {
            validity = INVALID;
         }
         log.info("Validated. Errors: {}", validationErrors);
+
+        databaseOps.saveWorkOrderValidationResult(inboundOrder, validity);
+        log.info("Successfully stored validated work order in the database: status - {}, order - {}", validity.name(), inboundOrder);
 
         return new WorkOrderSingleResponse(validity.getLabel(), validationErrors);
     }

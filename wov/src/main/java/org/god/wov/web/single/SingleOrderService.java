@@ -5,16 +5,13 @@ import org.god.wov.rules.*;
 import org.god.wov.web.common.ValidationError;
 import org.god.wov.web.common.Validity;
 import org.god.wov.web.common.WorkOrderValidationDatabaseService;
-import org.god.wov.web.common.model.WorkOrderValidationResult;
 import org.god.wov.web.common.model.request.WorkOrderSingleRequest;
 import org.god.wov.web.common.model.response.WorkOrderSingleResponse;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.time.LocalTime.now;
 import static org.god.wov.web.common.Validity.INVALID;
 import static org.god.wov.web.common.Validity.VALID;
 
